@@ -120,24 +120,22 @@ function get_credentials($username, $password) {
 
   $xml->registerXPathNamespace('c', 'urn:oasis:names:tc:SAML:1.0:assertion');
       
-
- 
-
-  $result = $xml->xpath("//c:Attribute[@AttributeName='Project_Role']");
-  //print $result;
-
+  $result = $xml->xpath("//c:Attribute[@AttributeName='System_Role']");
+  
   $role = "";
-
   while(list( $key, $node) = each($result)) {
+   
     if ($node->AttributeValue->{0} != $projectId) {
       continue ;
     } else {
-      $role = sprintf("%s", $node->AttributeValue->{1});
-      // echo '> ',$key,' ',$node->AttributeValue->{0},' ',$node->AttributeValue->{1}, "\n";
+      $role = $node->AttributeValue->{0};
     
     }
   }
-  if (! $role) {
+ 
+
+ 
+  if ($projectID && (! $role)) {
     error_log("Access denied to $username");
     return (false);
   };
