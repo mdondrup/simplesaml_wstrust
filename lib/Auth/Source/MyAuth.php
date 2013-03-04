@@ -3,8 +3,8 @@ class sspmod_wstrust_Auth_Source_MyAuth extends sspmod_core_Auth_UserPassBase {
 
   protected function login($username, $password) {
     $credentials = get_credentials($username, $password);
-    //error_log("login called for: $username");
-    //error_log(var_export($credentials, true));
+    error_log("login called for: $username");
+    error_log(var_export($credentials, true));
     if (! ($credentials)) {
       throw new SimpleSAML_Error_Error('WRONGUSERPASS');
     }
@@ -57,11 +57,11 @@ function get_credentials($username, $password) {
 
 
   $created= date('Y-m-d') .'T'. date('H:i:s');
-//  error_log( $created ." ");
+error_log( $created ." ");
 
   $expires_data = time()+6000;
   $expires= date('Y-m-d',$expires_data) .'T'. date('H:i:s',$expires_data);
-  //error_log($expires);
+  error_log($expires);
 
   $soap_env='<soapenv:Envelope xmlns:ns="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">';
 
@@ -135,7 +135,7 @@ function get_credentials($username, $password) {
  
 
  
-  if ($projectId && (! $role)) {
+  if (! $role) {
     error_log("Access denied to $username");
     return (false);
   };
@@ -150,7 +150,7 @@ function get_credentials($username, $password) {
     {
       $email = sprintf("%s", $node->AttributeValue->{0});
     };
-  error_log( "validated user: $username, $fullName, $email, $role \n");
+  error_log( "validated user: $username, $fullName, $email, $role");
 
   return array(
 		'uid' => array($username),
