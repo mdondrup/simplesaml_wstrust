@@ -135,10 +135,10 @@ error_log( $created ." ");
  
 
  
-  if (! $role) {
-    error_log("Access denied to $username");
-    return (false);
-  };
+  //if (! $role) {
+  //  error_log("Access denied to $username");
+  //  return (false);
+  //};
 
   $resultName = $xml->xpath("//c:Attribute[@AttributeName='UserFullName']");
   while(list( $key, $node) = each($resultName)) 
