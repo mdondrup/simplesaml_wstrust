@@ -21,7 +21,7 @@ function get_credentials($username, $password) {
    
   define('XML_POST_URL', $serviceEndPoint);
 
-  date_default_timezone_set('Europe/London');
+  date_default_timezone_set('UTC');
 
   $soap_header='<soapenv:Header>
       <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
@@ -56,12 +56,12 @@ function get_credentials($username, $password) {
    </soapenv:Body> </soapenv:Envelope>';
 
 
-  $created= date('Y-m-d') .'T'. date('H:i:s');
-  //error_log( $created ." ");
+  $created= date('Y-m-d') .'T'. date('H:i:s').'Z';
+  error_log( "create date: ". $created ." ");
 
   $expires_data = time()+6000;
-  $expires= date('Y-m-d',$expires_data) .'T'. date('H:i:s',$expires_data);
-  //error_log($expires);
+  $expires= date('Y-m-d',$expires_data) .'T'. date('H:i:s',$expires_data).'Z';
+  error_log($expires);
 
   $soap_env='<soapenv:Envelope xmlns:ns="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">';
 
